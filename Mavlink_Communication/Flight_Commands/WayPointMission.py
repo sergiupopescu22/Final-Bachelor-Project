@@ -90,9 +90,11 @@ def waypoint_mission(master):
     mission_waypoints = []
 
     mission_waypoints.append(
-        mission_item(0, 0, 47.397499, 8.544877, 5))
+        mission_item(0, 0, 47.397801, 8.545298, 5))
     mission_waypoints.append(
-        mission_item(1, 0, 47.397789, 8.543417, 5))
+        mission_item(1, 0, 47.397878, 8.544912, 5))
+    mission_waypoints.append(
+        mission_item(2, 0, 47.398097, 8.545304, 5))
 
     upload_mission(master, mission_waypoints)
 
