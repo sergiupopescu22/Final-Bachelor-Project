@@ -36,7 +36,7 @@ def main():
         print("--- 5. Show received messages")
         print("--- 6. Go to Specified Location")
         print("--- 7. Create Mission")
-        print("--- 8. Retrun")
+        print("--- 8. Return")
         print("--- 9. Exit program")
 
         print("\n-----------------------")
