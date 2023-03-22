@@ -12,9 +12,18 @@ from Flight_Commands.ACK import *
 
 from fastapi import FastAPI
 import uvicorn
+from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 
 app = FastAPI()
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Replace "*" with your list of allowed origins
+    allow_credentials=True,
+    allow_methods=["*"],  # Replace "*" with your list of allowed HTTP methods
+    allow_headers=["*"],  # Replace "*" with your list of allowed headers
+)
 
 
 def show_messages():
@@ -38,10 +47,6 @@ class Command(BaseModel):
 @app.post("/command/")
 async def read_root(command: Command):
 
-    # global master
-
-    # master = create_connection()
-
     option = command.type
     print("selected option: ", option)
 
@@ -64,6 +69,19 @@ async def read_root(command: Command):
         set_return(master)
     else:
         print("Option not implemented yet!")
+
+# @app.get("/info_state/")
+# async def read_root():
+
+#     #altitudine
+#     #pozitie: lat & long
+#     #flight mode
+#     #arm state
+
+
+#     pass
+
+    
     
 if __name__ == "__main__":
 

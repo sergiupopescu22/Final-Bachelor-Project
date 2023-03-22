@@ -8,7 +8,7 @@ def create_connection():
     global master
     master = mavutil.mavlink_connection('udpin:localhost:14540')
 
-    print("Connection created! Waiting for confirmation heartbeat...")
+    print("UDP data flow started! Waiting for confirmation heartbeat...")
 
     while(master.target_system == 0):
         print("-- Checking Heartbeat")
