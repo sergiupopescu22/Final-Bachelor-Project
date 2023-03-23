@@ -9,6 +9,7 @@ from Flight_Commands.Land import *
 from Flight_Commands.SetPosition import *
 from Flight_Commands.WayPointMission import *
 from Flight_Commands.ACK import *
+from Flight_Commands.Return import *
 
 from fastapi import FastAPI
 import uvicorn
@@ -25,12 +26,12 @@ app.add_middleware(
     allow_headers=["*"],  # Replace "*" with your list of allowed headers
 )
 
-
-def show_messages():
-    while True:
-        # msg = master.recv_match(type='LOCAL_POSITION_NED', blocking=True)
-        msg = master.recv_match()
-        print(msg)
+# TO DO: move this to a separate file and add the while functionality
+def get_info():
+    # while True:
+    msg = master.recv_match(type='LOCAL_POSITION_NED', blocking=True)
+    # msg = master.recv_match()
+    print(msg)
 
 def setup():
     global master
@@ -59,7 +60,7 @@ async def read_root(command: Command):
     elif option == 4:
         land(master)
     elif option == 5:
-        show_messages()
+        get_info()
     elif option == 6:
         # go_to_location()
         print("Option not working yet! :(")
@@ -70,18 +71,16 @@ async def read_root(command: Command):
     else:
         print("Option not implemented yet!")
 
-# @app.get("/info_state/")
-# async def read_root():
+@app.get("/info_state/")
+async def read_root():
 
-#     #altitudine
-#     #pozitie: lat & long
-#     #flight mode
-#     #arm state
-
-
-#     pass
-
-    
+    return {
+        "altitude": "not available yet",
+        "latitude": "not available yet",
+        "longitude": "not available yet",
+        "arm_state": "not available yet",
+        "flight_mode": "not available yet",
+    }
     
 if __name__ == "__main__":
 
