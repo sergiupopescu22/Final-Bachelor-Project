@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import GetDroneData from './components/drone_data.js';
+import Map from './components/map.js';
 
 function App() {
   const [data, setData] = useState('');
@@ -27,12 +28,15 @@ function App() {
         <button class="button-24" onClick={() => handleClick(4)}>LAND Mode</button>
         <br></br>
         <button class="button-24" onClick={() => handleClick(7)}>MISSION Mode</button>
-        <button class="button-24" onClick={() => handleClick(8)}>RETURN Mode</button>
+        <button class="button-24" onClick={() => handleClick(8)}>RETURN Mode</button>    
 
+        <div className="drone_info">
+          <GetDroneData/>
+        </div>    
       </div>
-      <div>
-        <GetDroneData/>
-      </div>
+    
+      <Map/>
+      
     </div>
   );
 }

@@ -11,11 +11,14 @@ from Flight_Commands.WayPointMission import *
 from Flight_Commands.ACK import *
 
 
-def show_messages():
+def show_messages(the_connection):
     while True:
-        # msg = master.recv_match(type='LOCAL_POSITION_NED', blocking=True)
-        msg = master.recv_match()
+        # msg = the_connection.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
+        msg = the_connection.recv_match()
         print(msg)
+        # print(msg.relative_alt)
+        # time.sleep(1)
+        
 
 def main():
 
@@ -52,14 +55,15 @@ def main():
         elif option == 4:
             land(master)
         elif option == 5:
-            show_messages()
+            show_messages(master)
         elif option == 6:
             # go_to_location()
             print("Option not working yet! :(")
         elif option == 7:
             waypoint_mission(master)
         elif option == 8:
-            set_return(master)
+            # set_return(master)
+            pass
         elif option == 9:
             break
         else:
