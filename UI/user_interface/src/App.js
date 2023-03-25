@@ -7,6 +7,8 @@ import Map from './components/map.js';
 function App() {
   const [data, setData] = useState('');
 
+  const [dronePosition, setDronePosition] = useState({ lat: null, lng: null });
+
   const handleClick = (command) => {
     axios.post('http://192.168.88.15:8000/command/', {type: command} )
       .then(response => {
@@ -31,11 +33,11 @@ function App() {
         <button class="button-24" onClick={() => handleClick(8)}>RETURN Mode</button>    
 
         <div className="drone_info">
-          <GetDroneData/>
+          <GetDroneData setDronePosition={setDronePosition}/>
         </div>    
       </div>
     
-      <Map/>
+      <Map position={dronePosition} setDronePosition={setDronePosition}/>
       
     </div>
   );

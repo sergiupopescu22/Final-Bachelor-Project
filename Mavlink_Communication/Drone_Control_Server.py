@@ -119,8 +119,8 @@ def get_info(the_connection):
 
     altitude = msg.alt//100/10
     relative_alt = msg.relative_alt//100/10
-    latitude = msg.lat
-    longitude = msg.lon
+    latitude = msg.lat/10000000
+    longitude = msg.lon/10000000
 
     # print(msg.relative_alt)
 

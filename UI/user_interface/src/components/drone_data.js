@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 
-export default function GetDroneData() {
+export default function GetDroneData(props) {
   const [data, setData] = useState([]);
 
   useEffect(() => {
     const interval = setInterval(() => {
       fetchData();
-    }, 500); // fetch data every 5 seconds
+    }, 1000); // fetch data every 5 seconds
     return () => clearInterval(interval);
   }, []);
 
@@ -14,7 +14,12 @@ export default function GetDroneData() {
     const response = await fetch("http://192.168.88.15:8000/info_state");
     const data = await response.json();
     setData(data);
+    // console.log(data.latitude)
+    // console.log(data.longitude)
+    props.setDronePosition({ lat: data.latitude, lng: data.longitude });
   }
+
+  
 
   return (
     

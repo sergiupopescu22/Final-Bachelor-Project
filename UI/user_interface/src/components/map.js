@@ -1,5 +1,3 @@
-
-
 import { useState, useMemo, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
 import axios from 'axios'
@@ -34,18 +32,8 @@ import axios from 'axios'
 //     </>
 //   );
 // }
-
-const containerStyle = {
-    width: '400px',
-    height: '400px'
-  };
   
-  const center = {
-    lat: -3.745,
-    lng: -38.523
-  };
-  
-export default function Map() {
+export default function Map(props) {
 
     return (
     <LoadScript
@@ -53,8 +41,8 @@ export default function Map() {
     >
         <GoogleMap
         mapContainerClassName="gmaps-container"
-        center={center}
-        zoom={10}
+        center={props.position}
+        zoom={18}
         >
         <></>
         </GoogleMap>
