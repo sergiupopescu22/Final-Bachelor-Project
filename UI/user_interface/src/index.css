@@ -23,6 +23,26 @@ code {
   
 }
 
+.firstRow {
+  display: flex;
+}
+.PageTitle{
+  padding-left: 15px;
+  max-width: 40%;
+  float: left;
+}
+
+.IDField{
+  padding-left: 15px;
+}
+
+.box {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  
+}
+
 .buttons_container {
   width: 40%;
   float: left;
@@ -61,7 +81,7 @@ tr:nth-child(even) {
 }
 
 tr:hover {
-  transform: scale(1.02);
+  transform: scale(1.03);
   transition: all .2s ease-in-out;
 }
 

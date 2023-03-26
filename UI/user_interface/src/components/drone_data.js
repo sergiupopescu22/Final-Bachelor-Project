@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+let firstRender = true;
 
 export default function GetDroneData(props) {
   const [data, setData] = useState([]);
@@ -6,23 +7,26 @@ export default function GetDroneData(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchData();
-    }, 1000); // fetch data every 5 seconds
+    }, 1000); 
     return () => clearInterval(interval);
   }, []);
 
+  
   async function fetchData() {
-    const response = await fetch("http://192.168.88.15:8000/info_state");
-    const data = await response.json();
-    setData(data);
-    // console.log(data.latitude)
-    // console.log(data.longitude)
-    props.setDronePosition({ lat: data.latitude, lng: data.longitude });
+    try {
+      const response = await fetch("http://192.168.88.15:8000/info_state");
+      const data = await response.json();
+      setData(data);
+      props.setDronePosition({ lat: data.latitude, lng: data.longitude });
+      props.setDroneID(data.drone_id)
+      props.setConnStatus("CONNECTED")
+    } catch (error) {
+      console.error("Error fetching data:", error);
+      props.setConnStatus("NO CONNECTION")
+    }
   }
 
-  
-
   return (
-    
         <div>
           <table>
           <thead>

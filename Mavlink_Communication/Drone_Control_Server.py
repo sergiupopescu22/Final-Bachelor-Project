@@ -19,6 +19,8 @@ from pydantic import BaseModel
 from fastapi_utils.tasks import repeat_every
 import asyncio
 
+DRONE_ID = "03DF7Y2JK"
+
 app = FastAPI()
 
 app.add_middleware(
@@ -98,6 +100,7 @@ async def read_root():
         "longitude": longitude,
         "arm_state": arm_state,
         "flight_mode": fligh_mode,
+        "drone_id": DRONE_ID
     }
 
 def get_info(the_connection):
