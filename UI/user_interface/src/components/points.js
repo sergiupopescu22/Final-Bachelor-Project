@@ -7,7 +7,7 @@ function SelectedPoints(props) {
         <td>{index}</td>
         <td>{item.lat}, {item.lng}</td>
         <td>
-            <button  onClick={() => erasePoint({index})}>Erase</button>
+            <button  onClick={() => erasePoint(index)}>Erase</button>
         </td>
       </tr>
     );
@@ -15,6 +15,7 @@ function SelectedPoints(props) {
 
   const erasePoint = (index) => {
     const updatedItems = [...props.items];
+    console.log(index)
     updatedItems.splice(index, 1);
     props.setMarkers(updatedItems);
   };
