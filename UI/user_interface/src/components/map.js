@@ -50,8 +50,7 @@ export default function Map(props) {
 
         {props.visibleForm && 
         <div className="mision-waypoints">
-            <p>Selected Waypoints for travel:</p>
-            <SelectedPoints items={markers} setMarkers={setMarkers}/>
+            <SelectedPoints markers={markers} setMarkers={setMarkers}/>
         </div>
         }
 

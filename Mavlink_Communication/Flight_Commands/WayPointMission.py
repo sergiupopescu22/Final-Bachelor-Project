@@ -75,16 +75,23 @@ def start_mission(the_connection):
 def ack (the_connection, keyword):
     print("CONFIRMATION MESSAGE: " + str(the_connection.recv_match(type=keyword, blocking=True)))
 
-def waypoint_mission(master):
+def waypoint_mission(master, waypoints):
 
     mission_waypoints = []
+    index = 0
 
-    mission_waypoints.append(
-        mission_item(0, 0, 47.397801, 8.545298, 5))
-    mission_waypoints.append(
-        mission_item(1, 0, 47.397878, 8.544912, 5))
-    mission_waypoints.append(
-        mission_item(2, 0, 47.398097, 8.545304, 5))
+    for waypoint in waypoints:
+        mission_waypoints.append(
+            mission_item(index, 0, waypoint['lat'], waypoint['lng'], 5))
+        print(waypoint)
+        index += 1
+
+    # mission_waypoints.append(
+    #     mission_item(0, 0, 47.397801, 8.545298, 5))
+    # mission_waypoints.append(
+    #     mission_item(1, 0, 47.397878, 8.544912, 5))
+    # mission_waypoints.append(
+    #     mission_item(2, 0, 47.398097, 8.545304, 5))
 
     upload_mission(master, mission_waypoints)
 

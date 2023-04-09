@@ -17,7 +17,7 @@ import uvicorn
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from fastapi_utils.tasks import repeat_every
-import asyncio
+from typing import Any
 
 DRONE_ID = "03DF7Y2JK"
 
@@ -40,11 +40,12 @@ def setup():
 
     master = create_connection()
 
-class Command(BaseModel):
+class Data(BaseModel):
     type: int
+    waypoints: Any
 
 @app.post("/command/")
-async def read_root(command: Command):
+async def read_root(command: Data):
 
     option = command.type
     print("selected option: ", option)
@@ -63,7 +64,10 @@ async def read_root(command: Command):
         # go_to_location()
         print("Option not working yet! :(")
     elif option == 7:
-        waypoint_mission(master)
+        print("mission started")
+        print("mission type: ", option)
+        print("mission waypoints: ", command.waypoints)
+        waypoint_mission(master, command.waypoints)
     elif option == 8:
         set_return(master)
     else:

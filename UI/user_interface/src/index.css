@@ -74,6 +74,15 @@ code {
   padding: 10px;
 }
 
+.select_text{
+  display: flex;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 20px;
+  border: 2px solid rgb(12, 13, 14);
+  border-radius: 5px;
+}
+
 table {
   border-collapse: collapse;
   width: 95%;
@@ -98,6 +107,42 @@ tr:hover {
   transition: all .2s ease-in-out;
 }
 
+.start_mission_button{
+
+  text-align: center;
+  background: #FF4742;
+  border: 1px solid #FF4742;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  /* box-sizing: border-box; */
+  color: #FFFFFF;
+  cursor: pointer;
+  /* display: inline-block; */
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 16px;
+  font-weight: 800;
+  line-height: 16px;
+  min-height: 40px;
+  outline: 0;
+  padding: 12px 10px;
+  /* text-align: center; */
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  margin-left: 10px;
+  width: 45%;
+}
+.start_mission_button:hover,
+.start_mission_button:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FF4742;
+}
 
 .button-24 {
   background: #FF4742;
