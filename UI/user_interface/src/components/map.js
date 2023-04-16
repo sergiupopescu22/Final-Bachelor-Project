@@ -44,7 +44,10 @@ export default function Map(props) {
                 scaledSize: new window.google.maps.Size(60, 60)
                 }}/>}
 
-        {markers.map((marker) => (<Marker  position={{lat: marker.lat, lng: marker.lng}} />)) }
+        {markers.map((marker, index) => (<Marker 
+            label = {`${index}`}  
+            position={{lat: marker.lat, lng: marker.lng}} 
+            />)) }
         
         </GoogleMap>
 

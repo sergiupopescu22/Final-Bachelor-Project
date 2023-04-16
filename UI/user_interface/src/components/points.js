@@ -5,8 +5,8 @@ function SelectedPoints(props) {
 
   const rows = props.markers.map((item, index) => {
     return (
-      <tr key={index}>
-        <td>{index}</td>
+      <tr key={index + 1}>
+        <td>{index+1}</td>
         <td>{item.lat}, {item.lng}</td>
         <td>
             <button  onClick={() => erasePoint(index)}>Erase</button>

@@ -1,6 +1,33 @@
 import math
 from pymavlink import mavutil
-import time
+from math import radians, sin, cos, sqrt, atan2
+
+def compute_distance(lat1, lon1, lat2, lon2):
+    """
+    Calculate the great circle distance between two points 
+    on the earth (specified in decimal degrees)
+    """
+    # convert decimal degrees to radians
+    lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
+
+    # Haversine formula
+    dlat = lat2 - lat1
+    dlon = lon2 - lon1
+    a = sin(dlat/2)**2 + cos(lat1) * cos(lat2) * sin(dlon/2)**2
+    c = 2 * atan2(sqrt(a), sqrt(1-a))
+    r = 6371 # Radius of earth in kilometers. Use 3956 for miles
+    distance = c * r * 1000 # convert to meters
+
+    return distance
+
+def waypoint_verification(waypoints, latitude, longitude):
+    
+    for waypoint in waypoints:
+        if compute_distance(waypoint["lat"], waypoint["lng"], latitude, longitude) > 40:
+            return False
+    
+    return True
+    
 
 #class for fromating the Mission Item
 class mission_item:
@@ -85,13 +112,6 @@ def waypoint_mission(master, waypoints):
             mission_item(index, 0, waypoint['lat'], waypoint['lng'], 5))
         print(waypoint)
         index += 1
-
-    # mission_waypoints.append(
-    #     mission_item(0, 0, 47.397801, 8.545298, 5))
-    # mission_waypoints.append(
-    #     mission_item(1, 0, 47.397878, 8.544912, 5))
-    # mission_waypoints.append(
-    #     mission_item(2, 0, 47.398097, 8.545304, 5))
 
     upload_mission(master, mission_waypoints)
 

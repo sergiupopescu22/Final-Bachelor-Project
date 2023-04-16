@@ -47,6 +47,9 @@ class Data(BaseModel):
 @app.post("/command/")
 async def read_root(command: Data):
 
+    global latitude
+    global longitude
+
     option = command.type
     print("selected option: ", option)
 
@@ -64,17 +67,18 @@ async def read_root(command: Data):
         # go_to_location()
         print("Option not working yet! :(")
     elif option == 7:
-        print("mission started")
-        print("mission type: ", option)
-        print("mission waypoints: ", command.waypoints)
-        waypoint_mission(master, command.waypoints)
+        if waypoint_verification(command.waypoints, latitude, longitude) is True:
+            waypoint_mission(master, command.waypoints)
+        else:
+            print("Waypoints too far away from starting point!!!!!!")
+            
     elif option == 8:
         set_return(master)
     else:
         print("Option not implemented yet!")
 
-    global altitude
-    altitude = 0
+    # global altitude
+    # altitude = 0
 
 @app.get("/info_state/")
 async def read_root():
