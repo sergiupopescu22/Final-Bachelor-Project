@@ -1,3 +1,4 @@
+import Flight_Commands.global_variables as GVar
 from pymavlink import mavutil
 import sys
 
@@ -7,20 +8,19 @@ def create_connection():
     print("\n-----------------------")
     print("Establishing Connection to Flight Controller...")
     global master
-    global action_type
 
-    print(action_type)
+    print("Connection mode: ", GVar.action_type)
 
     connection_string = ""
 
-    if action_type == "simulation":
+    if GVar.action_type == "simulation":
         connection_string = 'udpin:localhost:14540'
     
-    else:
+    elif GVar.action_type == "real-life":
         connection_string = '/dev/serial/by-id/usb-NXP_SEMICONDUCTORS_PX4_FMUK66_v3.x_0-if00'
 
     try: 
-        print(connection_string)
+        print("Connected to: ", connection_string)
         master = mavutil.mavlink_connection(connection_string)
 
         print("\n--> UDP data flow started! Waiting for confirmation heartbeat...")
