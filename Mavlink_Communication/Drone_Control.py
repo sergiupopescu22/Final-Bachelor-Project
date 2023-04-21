@@ -10,6 +10,8 @@ from Flight_Commands.SetPosition import *
 from Flight_Commands.WayPointMission import *
 from Flight_Commands.ACK import *
 
+import Flight_Commands.global_variables as GVar
+
 
 def show_messages(the_connection):
     while True:
@@ -27,8 +29,9 @@ def main():
     print("\n-----------------------")
     print("Welcome to the drone control center!")
     print("-----------------------")
-
+    GVar.action_type = "real-life"
     master = create_connection()
+    
     
     while True:
 

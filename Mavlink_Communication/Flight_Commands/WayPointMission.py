@@ -8,6 +8,11 @@ def compute_distance(lat1, lon1, lat2, lon2):
     on the earth (specified in decimal degrees)
     """
     # convert decimal degrees to radians
+    # print(lat1, type(lat1))
+    # print(lat2, type(lat2))
+    # print(lon1, type(lon1))
+    # print(lon2, type(lon2))
+
     lat1, lon1, lat2, lon2 = map(radians, [lat1, lon1, lat2, lon2])
 
     # Haversine formula
@@ -23,6 +28,8 @@ def compute_distance(lat1, lon1, lat2, lon2):
 def waypoint_verification(waypoints, latitude, longitude):
     
     for waypoint in waypoints:
+        print("\n--------------")
+        print(waypoint)
         if compute_distance(waypoint["lat"], waypoint["lng"], latitude, longitude) > 40:
             return False
     
@@ -115,4 +122,4 @@ def waypoint_mission(master, waypoints):
 
     upload_mission(master, mission_waypoints)
 
-    start_mission(master)
+    # start_mission(master)
