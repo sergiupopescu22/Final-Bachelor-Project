@@ -5,8 +5,8 @@ function SelectedPoints(props) {
 
   const rows = props.markers.map((item, index) => {
     return (
-      <tr key={index + 1}>
-        <td>{index+1}</td>
+      <tr key={index}>
+        <td>{index}</td>
         <td>{item.lat}, {item.lng}</td>
         <td>
             <button  onClick={() => erasePoint(index)}>Erase</button>
@@ -30,6 +30,8 @@ function SelectedPoints(props) {
     };
 
     console.log(props.markers);
+
+    // 'http://192.168.88.233:8000/command/'
 
     axios.post('http://192.168.88.15:8000/command/', data)
       .then(response => {

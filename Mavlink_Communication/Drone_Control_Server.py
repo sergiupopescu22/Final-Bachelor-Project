@@ -1,5 +1,6 @@
 from pymavlink import mavutil
 
+import Flight_Commands.global_variables as GVar
 from Flight_Commands.MakeConnection import *
 from Flight_Commands.Arm import *
 from Flight_Commands.Disarm import *
@@ -31,8 +32,10 @@ app.add_middleware(
     allow_headers=["*"],  # Replace "*" with your list of allowed headers
 )
 
+
 def setup():
     global master
+    global action_type
 
     print("\n-----------------------")
     print("Welcome to the drone control center!")
@@ -40,9 +43,11 @@ def setup():
 
     master = create_connection()
 
+
 class Data(BaseModel):
     type: int
     waypoints: Any
+
 
 @app.post("/command/")
 async def read_root(command: Data):
@@ -77,63 +82,20 @@ async def read_root(command: Data):
     else:
         print("Option not implemented yet!")
 
-    # global altitude
-    # altitude = 0
 
 @app.get("/info_state/")
 async def read_root():
 
-    global altitude
-    global relative_alt
-    global latitude
-    global longitude
-    global arm_state
-    global fligh_mode
-
-    # info = get_info(master)
-
-    # return {
-    #     "altitude": info.alt/1000,
-    #     "relative_altitude": info.relative_alt/1000,
-    #     "latitude": latitude,
-    #     "longitude": longitude,
-    #     "arm_state": arm_state,
-    #     "flight_mode": fligh_mode,
-    # }
-
     return {
-        "altitude": altitude,
-        "relative_altitude": relative_alt,
-        "latitude": latitude,
-        "longitude": longitude,
-        "arm_state": arm_state,
-        "flight_mode": fligh_mode,
+        "altitude": GVar.altitude,
+        "relative_altitude": GVar.relative_alt,
+        "latitude": GVar.latitude,
+        "longitude": GVar.longitude,
+        "arm_state": GVar.arm_state,
+        "flight_mode": GVar.fligh_mode,
         "drone_id": DRONE_ID
     }
 
-def get_info(the_connection):
-
-    global altitude
-    global relative_alt
-    global latitude
-    global longitude
-    global arm_state
-    global fligh_mode
-
-    msg = the_connection.recv_match(type='GLOBAL_POSITION_INT', blocking=False)
-    # arm_status = master.recv_match(type='HEARTBEAT', blocking=True)
-    # if arm_status:
-    #     if arm_status.basemode & mavutil.mavlink.MAV_MODE_FLAG_SAFETY_ARMED:
-    #         arm_state = "ARMED"
-    #     else:
-    #         arm_state = "NOT ARMED"
-
-    altitude = msg.alt//100/10
-    relative_alt = msg.relative_alt//100/10
-    latitude = msg.lat/10000000
-    longitude = msg.lon/10000000
-
-    # print(msg.relative_alt)
 
 @app.on_event("startup")
 @repeat_every(seconds=0.01)
@@ -141,6 +103,18 @@ async def startup_event():
     get_info(master)
 
 if __name__ == "__main__":
+
+    if len(sys.argv) <= 1:
+        print("\nAs no input was provided, the server will run in simulation state\n")
+
+    elif sys.argv[1] == "real-life":
+        GVar.action_type = "real-life"
+
+    elif sys.argv[1] == "simulation":
+        GVar.action_type = "simulation"
+
+    else:
+        print("\nThe provided input can not be processed!\n")
 
     setup()
 

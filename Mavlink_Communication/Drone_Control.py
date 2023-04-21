@@ -15,7 +15,9 @@ def show_messages(the_connection):
     while True:
         # msg = the_connection.recv_match(type='GLOBAL_POSITION_INT', blocking=True)
         msg = the_connection.recv_match()
-        print(msg)
+        if msg is not None:
+            print("")
+            print(msg)
         # print(msg.relative_alt)
         # time.sleep(1)
         
