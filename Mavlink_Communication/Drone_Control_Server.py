@@ -15,6 +15,8 @@ from Flight_Commands.GetInfo import *
 from fastapi import FastAPI
 from fastapi import BackgroundTasks
 import uvicorn
+import subprocess
+import time
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from fastapi_utils.tasks import repeat_every
@@ -106,6 +108,9 @@ if __name__ == "__main__":
 
     elif sys.argv[1] == "real-life":
         GVar.action_type = "real-life"
+        setup_process = subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', 'mavproxy.py'])
+        time.sleep(5)
+        setup_process.kill()
 
     elif sys.argv[1] == "simulation":
         GVar.action_type = "simulation"

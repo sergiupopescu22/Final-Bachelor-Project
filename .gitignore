@@ -1,2 +1,5 @@
 /Mavlink_Communication/Flight_Commands/__pycache__/
 /Mavlink_Communication/__pycache__/
+/Mavlink_Communication/mav.parm
+/Mavlink_Communication/mav.tlog
+/Mavlink_Communication/mav.tlog.raw

@@ -32,6 +32,8 @@ def waypoint_verification(waypoints, latitude, longitude):
         print(waypoint)
         if compute_distance(waypoint["lat"], waypoint["lng"], latitude, longitude) > 40:
             return False
+        
+    print("Waypoints verified successfully")
     
     return True
     
