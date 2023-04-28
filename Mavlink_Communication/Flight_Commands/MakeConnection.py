@@ -16,8 +16,11 @@ def create_connection():
     if GVar.action_type == "simulation":
         connection_string = 'udpin:localhost:14540'
     
-    elif GVar.action_type == "real-life":
+    elif GVar.action_type == "real-life-win":
         connection_string = '/dev/serial/by-id/usb-NXP_SEMICONDUCTORS_PX4_FMUK66_v3.x_0-if00'
+
+    elif GVar.action_type == "real-life-rb":
+        connection_string = 'to be added'
 
     try: 
         print("Connected to: ", connection_string)

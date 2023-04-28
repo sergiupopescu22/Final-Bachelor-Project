@@ -106,8 +106,14 @@ if __name__ == "__main__":
     if len(sys.argv) <= 1:
         print("\nAs no input was provided, the server will run in simulation state\n")
 
-    elif sys.argv[1] == "real-life":
-        GVar.action_type = "real-life"
+    elif sys.argv[1] == "real-life-win":
+        GVar.action_type = "real-life-win"
+        setup_process = subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', 'mavproxy.py'])
+        time.sleep(5)
+        setup_process.kill()
+
+    elif sys.argv[1] == "real-life-rb":
+        GVar.action_type = "real-life-rb"
         setup_process = subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', 'mavproxy.py'])
         time.sleep(5)
         setup_process.kill()

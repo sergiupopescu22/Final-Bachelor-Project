@@ -4,6 +4,10 @@ def ack(master, type, blocking, timeout):
     msg = master.recv_match(type=type, blocking=blocking, timeout=timeout)
     if msg:
         print(msg)
+        if msg.result == 0:
+            print("----COMMAND ACCEPTED----")
+        else:
+            print("----COMMAND DENIED----")
         return True
 
     else:
