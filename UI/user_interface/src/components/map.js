@@ -20,7 +20,7 @@ export default function Map(props) {
     
     return (
     <LoadScript
-        googleMapsApiKey="AIzaSyDDMP3YyKRuP0NJdERyfK63W9UBjxeEKaw"
+        googleMapsApiKey="to be added"
     >
         <GoogleMap
         mapContainerClassName="gmaps-container"
