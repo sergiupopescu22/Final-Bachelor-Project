@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { DRONE_URL } from "./globals";
 let firstRender = true;
 
 export default function GetDroneData(props) {
@@ -7,14 +8,15 @@ export default function GetDroneData(props) {
   useEffect(() => {
     const interval = setInterval(() => {
       fetchData();
-    }, 1000); 
+    }, 3000); 
     return () => clearInterval(interval);
   }, []);
 
-  
+  // http://192.168.88.15:8000/info_state
+  // proxy51.rt3.io:31682
   async function fetchData() {
     try {
-      const response = await fetch("http://192.168.88.15:8000/info_state");
+      const response = await fetch(DRONE_URL);
       const data = await response.json();
       setData(data);
       props.setDronePosition({ lat: data.latitude, lng: data.longitude });

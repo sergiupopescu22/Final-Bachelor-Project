@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { DRONE_URL } from './globals';
 
 function SelectedPoints(props) {
 
@@ -31,9 +32,7 @@ function SelectedPoints(props) {
 
     console.log(props.markers);
 
-    // 'http://192.168.88.233:8000/command/'
-
-    axios.post('http://192.168.88.15:8000/command/', data)
+    axios.post(DRONE_URL, data)
       .then(response => {
         // setData(response.data);
       })

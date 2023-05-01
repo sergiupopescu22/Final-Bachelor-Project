@@ -3,6 +3,7 @@ import axios from 'axios';
 
 import GetDroneData from './components/drone_data.js';
 import Map from './components/map.js';
+import { DRONE_URL } from './components/globals.js';
 
 function App() {
   const [data, setData] = useState('');
@@ -12,7 +13,7 @@ function App() {
   const [visibleForm, setVisibleForm] = useState(false);
 
   const handleClick = (command) => {
-    axios.post('http://192.168.88.15:8000/command/', {type: command} )
+    axios.post(DRONE_URL, {type: command} )
       .then(response => {
         setData(response.data);
       })
