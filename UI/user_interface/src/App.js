@@ -3,7 +3,7 @@ import axios from 'axios';
 
 import GetDroneData from './components/drone_data.js';
 import Map from './components/map.js';
-import { DRONE_URL } from './components/globals.js';
+import { DRONE_URL } from './components/global_var.js';
 
 function App() {
   const [data, setData] = useState('');

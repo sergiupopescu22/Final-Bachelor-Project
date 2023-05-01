@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+/src/components/global_var.js
 
 # testing
 /coverage

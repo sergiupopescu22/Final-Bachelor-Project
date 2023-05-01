@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { DRONE_URL } from "./globals";
+import { DRONE_URL } from "./global_var";
 let firstRender = true;
 
 export default function GetDroneData(props) {
@@ -12,8 +12,6 @@ export default function GetDroneData(props) {
     return () => clearInterval(interval);
   }, []);
 
-  // http://192.168.88.15:8000/info_state
-  // proxy51.rt3.io:31682
   async function fetchData() {
     try {
       const response = await fetch(DRONE_URL);

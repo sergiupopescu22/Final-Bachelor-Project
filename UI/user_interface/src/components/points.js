@@ -1,6 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import { DRONE_URL } from './globals';
+import { DRONE_URL } from './global_var';
 
 function SelectedPoints(props) {
 

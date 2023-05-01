@@ -2,6 +2,7 @@ import { useState, useMemo, useEffect } from "react";
 import { GoogleMap, LoadScript, Marker} from "@react-google-maps/api";
 import customMarkerIcon from './drone1.png';
 import SelectedPoints from './points.js'
+import GOOGLE_MAPS_API from "./global_var";
   
 export default function Map(props) {
 
@@ -20,7 +21,7 @@ export default function Map(props) {
     
     return (
     <LoadScript
-        googleMapsApiKey="to be added"
+        googleMapsApiKey={GOOGLE_MAPS_API}
     >
         <GoogleMap
         mapContainerClassName="gmaps-container"
