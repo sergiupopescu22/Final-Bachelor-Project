@@ -20,7 +20,7 @@ def create_connection():
         connection_string = '/dev/serial/by-id/usb-NXP_SEMICONDUCTORS_PX4_FMUK66_v3.x_0-if00'
 
     elif GVar.action_type == "real-life-rb":
-        connection_string = 'to be added'
+        connection_string = '/dev/serial/by-id/usb-NXP_SEMICONDUCTORS_PX4_FMUK66_v3.x_0-if00'
 
     try: 
         print("Connected to: ", connection_string)

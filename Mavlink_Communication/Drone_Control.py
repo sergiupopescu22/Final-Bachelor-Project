@@ -29,7 +29,7 @@ def main():
     print("\n-----------------------")
     print("Welcome to the drone control center!")
     print("-----------------------")
-    GVar.action_type = "real-life"
+    GVar.action_type = "real-life-rb"
     master = create_connection()
     
     
