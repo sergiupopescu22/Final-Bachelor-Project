@@ -19,7 +19,7 @@ def get_info(the_connection):
             GVar.latitude = msg.lat/10000000
             GVar.longitude = msg.lon/10000000
 
-    elif GVar.action_type == "real-life":
+    elif GVar.action_type == "real-life-rb" or GVar.action_type == "real-life-win":
 
         msg2 = the_connection.recv_match(type='GPS_RAW_INT', blocking=False)
 
