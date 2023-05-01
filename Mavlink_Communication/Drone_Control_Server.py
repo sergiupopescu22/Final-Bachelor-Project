@@ -16,6 +16,7 @@ from fastapi import FastAPI
 from fastapi import BackgroundTasks
 import uvicorn
 import subprocess
+import os
 import time
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -114,9 +115,10 @@ if __name__ == "__main__":
 
     elif sys.argv[1] == "real-life-rb":
         GVar.action_type = "real-life-rb"
-        setup_process = subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', 'mavproxy.py'])
-        time.sleep(5)
-        setup_process.kill()
+        setup_process = subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', 'timeout --kill-after=5s mavproxy.py'])
+        print("Waiting for the mavproxy script to finish....")
+        time.sleep(6)
+        
 
     elif sys.argv[1] == "simulation":
         GVar.action_type = "simulation"
@@ -126,6 +128,4 @@ if __name__ == "__main__":
 
     setup()
 
-    uvicorn.run("Drone_Control_Server:app", host="0.0.0.0", port=8000, log_level="info")
-
-
+    uvicorn.run("Drone_Control_Server:app", host="0.0.0.0", port=1234, log_level="info")
