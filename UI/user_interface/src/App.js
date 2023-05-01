@@ -13,7 +13,7 @@ function App() {
   const [visibleForm, setVisibleForm] = useState(false);
 
   const handleClick = (command) => {
-    axios.post(DRONE_URL, {type: command} )
+    axios.post(DRONE_URL+"/command/", {type: command} )
       .then(response => {
         setData(response.data);
       })

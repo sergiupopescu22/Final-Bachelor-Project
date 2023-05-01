@@ -14,7 +14,9 @@ export default function GetDroneData(props) {
 
   async function fetchData() {
     try {
-      const response = await fetch(DRONE_URL);
+      // console.log(DRONE_URL)
+      // console.log({DRONE_URL})
+      const response = await fetch(DRONE_URL+'/info_state/');
       const data = await response.json();
       setData(data);
       props.setDronePosition({ lat: data.latitude, lng: data.longitude });

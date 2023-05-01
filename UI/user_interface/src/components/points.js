@@ -32,7 +32,7 @@ function SelectedPoints(props) {
 
     console.log(props.markers);
 
-    axios.post(DRONE_URL, data)
+    axios.post(DRONE_URL+"/command/", data)
       .then(response => {
         // setData(response.data);
       })
