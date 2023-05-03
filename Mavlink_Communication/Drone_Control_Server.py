@@ -11,6 +11,7 @@ from Flight_Commands.WayPointMission import *
 from Flight_Commands.ACK import *
 from Flight_Commands.Return import *
 from Flight_Commands.GetInfo import *
+from startup_checks import *
 
 from fastapi import FastAPI
 from fastapi import BackgroundTasks
@@ -104,6 +105,8 @@ async def startup_event():
 
 if __name__ == "__main__":
 
+    confirm_connection()
+
     if len(sys.argv) <= 1:
         print("\nAs no input was provided, the server will run in simulation state\n")
 
@@ -115,9 +118,9 @@ if __name__ == "__main__":
 
     elif sys.argv[1] == "real-life-rb":
         GVar.action_type = "real-life-rb"
-        setup_process = subprocess.Popen(['gnome-terminal', '--', 'bash', '-c', 'timeout --kill-after=5s mavproxy.py'])
-        print("Waiting for the mavproxy script to finish....")
-        time.sleep(6)
+        setup_process = subprocess.Popen(['mavproxy.py'])
+        time.sleep(5)
+        setup_process.terminate()
         
 
     elif sys.argv[1] == "simulation":
