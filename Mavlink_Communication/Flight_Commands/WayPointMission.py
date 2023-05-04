@@ -124,4 +124,4 @@ def waypoint_mission(master, waypoints):
 
     upload_mission(master, mission_waypoints)
 
-    # start_mission(master)
+    start_mission(master)

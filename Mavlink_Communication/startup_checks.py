@@ -1,16 +1,33 @@
 import subprocess
-import RPi.GPIO as GPIO
 import time
+import aioping
+import asyncio
+import Flight_Commands.global_variables as GVar
+import aiohttp
+import urllib
 
-GPIO.setmode(GPIO.BCM)
-led_pin = 17
-GPIO.setup(led_pin, GPIO.OUT)
+if GVar.action_type == "real-life-rb":
+    import RPi.GPIO as GPIO
+    GPIO.setmode(GPIO.BCM)
+    led_pin = 17
+    GPIO.setup(led_pin, GPIO.OUT)
+
+async def check_internet_connection_async():
+    try:
+        async with aiohttp.ClientSession() as session:
+            async with session.get('http://www.google.com') as response:
+                if response.status == 200:
+                    return True
+                else:
+                    return False
+    except Exception:
+        return False
 
 def check_internet_connection():
     try:
-        output = subprocess.check_output(['ping', '-c', '3', 'google.com'])
+        urllib.request.urlopen('http://www.google.com', timeout=1)
         return True
-    except subprocess.CalledProcessError:
+    except:
         return False
     
 def confirm_connection():
@@ -20,11 +37,13 @@ def confirm_connection():
     while counter < 3:
         if check_internet_connection():
             print("Internet connection is active.")
-            GPIO.output(led_pin, GPIO.HIGH)
+            if GVar.action_type == "real-life-rb":
+                GPIO.output(led_pin, GPIO.HIGH)
             counter += 1
         else:
             print("No internet connection.")
-            GPIO.output(led_pin, GPIO.LOW)
+            if GVar.action_type == "real-life-rb":
+                GPIO.output(led_pin, GPIO.LOW)
             counter = 0
         time.sleep(1)
     
