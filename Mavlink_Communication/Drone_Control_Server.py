@@ -28,6 +28,7 @@ import signal
 
 DRONE_ID = "03DF7Y2JK"
 
+
 app = FastAPI()
 
 app.add_middleware(
@@ -109,28 +110,22 @@ async def startup_event():
 
 @app.on_event("startup")
 @repeat_every(seconds=1)
-async def startup_event_1():
+async def check_internet_event():
 
     is_connected = await check_internet_connection_async()
 
     if is_connected:
         if GVar.action_type == "real-life-rb":
             GPIO.output(led_pin, GPIO.HIGH)
+        GVar.emergency_land = False
+        
     if not is_connected:
-        land(master)
-        print("No internet connection.")
+        print("no connection")
+        if GVar.emergency_land is False:
+            land(master)
+
         if GVar.action_type == "real-life-rb":
             GPIO.output(led_pin, GPIO.LOW)
-
-
-
-def signal_handler(signal, frame):
-    # Your code to be executed when Ctrl+C is pressed
-    print('You pressed Ctrl+C!')
-    sys.exit(0)
-
-# Set up a signal handler for SIGINT (Ctrl+C)
-signal.signal(signal.SIGINT, signal_handler)
 
 
 if __name__ == "__main__":
@@ -143,6 +138,10 @@ if __name__ == "__main__":
 
     elif sys.argv[1] == "real-life-rb":
         GVar.action_type = "real-life-rb"
+        import RPi.GPIO as GPIO
+        GPIO.setmode(GPIO.BCM)
+        led_pin = 17
+        GPIO.setup(led_pin, GPIO.OUT)
 
     elif sys.argv[1] == "simulation":
         GVar.action_type = "simulation"

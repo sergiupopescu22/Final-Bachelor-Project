@@ -6,16 +6,15 @@ import Flight_Commands.global_variables as GVar
 import aiohttp
 import urllib
 
-if GVar.action_type == "real-life-rb":
-    import RPi.GPIO as GPIO
-    GPIO.setmode(GPIO.BCM)
-    led_pin = 17
-    GPIO.setup(led_pin, GPIO.OUT)
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+led_pin = 17
+GPIO.setup(led_pin, GPIO.OUT)
 
 async def check_internet_connection_async():
     try:
         async with aiohttp.ClientSession() as session:
-            async with session.get('http://www.google.com') as response:
+            async with session.get('http://www.google.com', timeout = 2) as response:
                 if response.status == 200:
                     return True
                 else:
