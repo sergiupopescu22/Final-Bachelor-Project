@@ -24,7 +24,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from fastapi_utils.tasks import repeat_every
 from typing import Any
-import asyncio
+import signal
 
 DRONE_ID = "03DF7Y2JK"
 
@@ -123,6 +123,16 @@ async def startup_event_1():
             GPIO.output(led_pin, GPIO.LOW)
 
 
+
+def signal_handler(signal, frame):
+    # Your code to be executed when Ctrl+C is pressed
+    print('You pressed Ctrl+C!')
+    sys.exit(0)
+
+# Set up a signal handler for SIGINT (Ctrl+C)
+signal.signal(signal.SIGINT, signal_handler)
+
+
 if __name__ == "__main__":
 
     if len(sys.argv) <= 1:
@@ -142,6 +152,8 @@ if __name__ == "__main__":
         exit()
 
     confirm_connection() #the program will pass this function only if an internet connection has been established
+
+    subprocess.Popen("./ngrok_conn.sh", shell=True)
 
     mavproxy_connection()
 

@@ -23,20 +23,25 @@ def takeoff(master):
     lat_float = GVar.latitude
     lon_float = GVar.longitude
 
-    counter = 0
-    while counter < 5:
+    if lat_float != "not available yet":
 
-        print("Try number: ", counter+1)
+        counter = 0
+        while counter < 5:
+
+            print("Try number: ", counter+1)
+        
+            master.mav.command_long_send(
+                master.target_system,
+                master.target_component,
+                mavutil.mavlink.MAV_CMD_NAV_TAKEOFF,
+                0,
+                0, 0, 0, 0, lat_float, lon_float, 4)
+            print("TAKEOFF Command sent")
+
+            if ack(master, "COMMAND_ACK", True, 0.5):
+                break
+
+            counter += 1
     
-        master.mav.command_long_send(
-            master.target_system,
-            master.target_component,
-            mavutil.mavlink.MAV_CMD_NAV_TAKEOFF,
-            0,
-            0, 0, 0, 0, lat_float, lon_float, 5)
-        print("TAKEOFF Command sent")
-
-        if ack(master, "COMMAND_ACK", True, 0.5):
-            break
-
-        counter += 1
+    else:
+        print("Not a valid position estimated yet")
