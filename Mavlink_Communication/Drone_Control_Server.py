@@ -26,6 +26,12 @@ from fastapi_utils.tasks import repeat_every
 from typing import Any
 import signal
 
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+led_pin = 17
+GPIO.setup(led_pin, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+
 DRONE_ID = "03DF7Y2JK"
 
 
@@ -40,7 +46,7 @@ app.add_middleware(
 )
 
 
-def setup():
+def setup(ngrok):
     global master
     global action_type
 
@@ -48,7 +54,7 @@ def setup():
     print("Welcome to the drone control center!")
     print("-----------------------")
 
-    master = create_connection()
+    master = create_connection(ngrok)
 
 
 class Data(BaseModel):
@@ -138,10 +144,6 @@ if __name__ == "__main__":
 
     elif sys.argv[1] == "real-life-rb":
         GVar.action_type = "real-life-rb"
-        import RPi.GPIO as GPIO
-        GPIO.setmode(GPIO.BCM)
-        led_pin = 17
-        GPIO.setup(led_pin, GPIO.OUT)
 
     elif sys.argv[1] == "simulation":
         GVar.action_type = "simulation"
@@ -150,12 +152,14 @@ if __name__ == "__main__":
         print("\nThe provided input can not be processed!\n")
         exit()
 
+    GPIO.output(27, GPIO.HIGH)
+
     confirm_connection() #the program will pass this function only if an internet connection has been established
 
-    subprocess.Popen("./ngrok_conn.sh", shell=True)
+    ngrok = subprocess.Popen("/home/sergiu/Desktop/Final-Bachelor-Project/Mavlink_Communication/ngrok_conn.sh", shell=True)
 
     mavproxy_connection()
 
-    setup()
+    setup(ngrok)
 
     uvicorn.run("Drone_Control_Server:app", host="0.0.0.0", port=1234, log_level="info")

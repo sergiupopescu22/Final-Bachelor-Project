@@ -36,8 +36,6 @@ def confirm_connection():
     while counter < 3:
         if check_internet_connection():
             print("Internet connection is active.")
-            if GVar.action_type == "real-life-rb":
-                GPIO.output(led_pin, GPIO.HIGH)
             counter += 1
         else:
             print("No internet connection.")
@@ -46,5 +44,7 @@ def confirm_connection():
             counter = 0
         time.sleep(1)
     
+    if GVar.action_type == "real-life-rb":
+        GPIO.output(led_pin, GPIO.HIGH)
     print("CONNECTION OK")
     return True
