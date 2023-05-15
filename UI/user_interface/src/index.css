@@ -179,3 +179,7 @@ tr:hover {
   background-position: 0 0;
   color: #FF4742;
 }
+
+.drone_info{
+  padding-top: 20px;
+}

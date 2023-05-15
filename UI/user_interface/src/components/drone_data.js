@@ -29,7 +29,7 @@ export default function GetDroneData(props) {
   }
 
   return (
-        <div>
+        <div className="drone_info">
           <table>
           <thead>
             <tr>
@@ -38,14 +38,15 @@ export default function GetDroneData(props) {
             </tr>
           </thead>
           <tbody>
-            <tr>
+            {/* <tr>
               <td>Arm State:</td>
               <td>{data.arm_state}</td>
             </tr>
             <tr>
               <td>Flight Mode:</td>
               <td>{data.flight_mode}</td>
-            </tr>
+            </tr> */}
+            <p></p>
             <tr>
               <td>Altitude</td>
               <td>{data.altitude}</td>
