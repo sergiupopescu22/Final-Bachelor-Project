@@ -4,7 +4,7 @@ import sys
 
 from Flight_Commands.global_variables import *
 
-def create_connection():
+def create_connection(ngrok):
     print("\n-----------------------")
     print("Establishing Connection to Flight Controller...")
     global master
@@ -42,6 +42,7 @@ def create_connection():
     except:
 
         print("\nCOULD NOT ESTABLISH A CONNECTION WITH THE FLIGHT CONTROLLER :(\n")
+        ngrok.kill()
 
         sys.exit()
 

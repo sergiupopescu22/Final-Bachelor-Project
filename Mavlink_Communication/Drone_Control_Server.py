@@ -26,7 +26,14 @@ from fastapi_utils.tasks import repeat_every
 from typing import Any
 import signal
 
+import RPi.GPIO as GPIO
+GPIO.setmode(GPIO.BCM)
+led_pin = 17
+GPIO.setup(led_pin, GPIO.OUT)
+GPIO.setup(27, GPIO.OUT)
+
 DRONE_ID = "03DF7Y2JK"
+
 
 app = FastAPI()
 
@@ -39,7 +46,7 @@ app.add_middleware(
 )
 
 
-def setup():
+def setup(ngrok):
     global master
     global action_type
 
@@ -47,7 +54,7 @@ def setup():
     print("Welcome to the drone control center!")
     print("-----------------------")
 
-    master = create_connection()
+    master = create_connection(ngrok)
 
 
 class Data(BaseModel):
@@ -109,28 +116,22 @@ async def startup_event():
 
 @app.on_event("startup")
 @repeat_every(seconds=1)
-async def startup_event_1():
+async def check_internet_event():
 
     is_connected = await check_internet_connection_async()
 
     if is_connected:
         if GVar.action_type == "real-life-rb":
             GPIO.output(led_pin, GPIO.HIGH)
+        GVar.emergency_land = False
+        
     if not is_connected:
-        land(master)
-        print("No internet connection.")
+        print("no connection")
+        if GVar.emergency_land is False:
+            land(master)
+
         if GVar.action_type == "real-life-rb":
             GPIO.output(led_pin, GPIO.LOW)
-
-
-
-def signal_handler(signal, frame):
-    # Your code to be executed when Ctrl+C is pressed
-    print('You pressed Ctrl+C!')
-    sys.exit(0)
-
-# Set up a signal handler for SIGINT (Ctrl+C)
-signal.signal(signal.SIGINT, signal_handler)
 
 
 if __name__ == "__main__":
@@ -151,12 +152,14 @@ if __name__ == "__main__":
         print("\nThe provided input can not be processed!\n")
         exit()
 
+    GPIO.output(27, GPIO.HIGH)
+
     confirm_connection() #the program will pass this function only if an internet connection has been established
 
-    subprocess.Popen("./ngrok_conn.sh", shell=True)
+    ngrok = subprocess.Popen("/home/sergiu/Desktop/Final-Bachelor-Project/Mavlink_Communication/ngrok_conn.sh", shell=True)
 
     mavproxy_connection()
 
-    setup()
+    setup(ngrok)
 
     uvicorn.run("Drone_Control_Server:app", host="0.0.0.0", port=1234, log_level="info")

@@ -25,6 +25,7 @@ def land(master):
         print("Land Command sent")
 
         if ack(master, "COMMAND_ACK", True, 0.5):
+            GVar.emergency_land = True
             break
 
         counter += 1
