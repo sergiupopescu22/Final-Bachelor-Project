@@ -6,10 +6,10 @@ import Flight_Commands.global_variables as GVar
 import aiohttp
 import urllib
 
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-led_pin = 17
-GPIO.setup(led_pin, GPIO.OUT)
+# import RPi.GPIO as GPIO
+# GPIO.setmode(GPIO.BCM)
+# led_pin = 17
+# GPIO.setup(led_pin, GPIO.OUT)
 
 async def check_internet_connection_async():
     try:
@@ -39,12 +39,12 @@ def confirm_connection():
             counter += 1
         else:
             print("No internet connection.")
-            if GVar.action_type == "real-life-rb":
-                GPIO.output(led_pin, GPIO.LOW)
+            # if GVar.action_type == "real-life-rb":
+            #     GPIO.output(led_pin, GPIO.LOW)
             counter = 0
         time.sleep(1)
     
-    if GVar.action_type == "real-life-rb":
-        GPIO.output(led_pin, GPIO.HIGH)
+    # if GVar.action_type == "real-life-rb":
+    #     GPIO.output(led_pin, GPIO.HIGH)
     print("CONNECTION OK")
     return True

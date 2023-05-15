@@ -26,11 +26,11 @@ from fastapi_utils.tasks import repeat_every
 from typing import Any
 import signal
 
-import RPi.GPIO as GPIO
-GPIO.setmode(GPIO.BCM)
-led_pin = 17
-GPIO.setup(led_pin, GPIO.OUT)
-GPIO.setup(27, GPIO.OUT)
+# import RPi.GPIO as GPIO
+# GPIO.setmode(GPIO.BCM)
+# led_pin = 17
+# GPIO.setup(led_pin, GPIO.OUT)
+# GPIO.setup(27, GPIO.OUT)
 
 DRONE_ID = "03DF7Y2JK"
 
@@ -121,8 +121,8 @@ async def check_internet_event():
     is_connected = await check_internet_connection_async()
 
     if is_connected:
-        if GVar.action_type == "real-life-rb":
-            GPIO.output(led_pin, GPIO.HIGH)
+        # if GVar.action_type == "real-life-rb":
+        #     GPIO.output(led_pin, GPIO.HIGH)
         GVar.emergency_land = False
         
     if not is_connected:
@@ -130,8 +130,8 @@ async def check_internet_event():
         if GVar.emergency_land is False:
             land(master)
 
-        if GVar.action_type == "real-life-rb":
-            GPIO.output(led_pin, GPIO.LOW)
+        # if GVar.action_type == "real-life-rb":
+        #     GPIO.output(led_pin, GPIO.LOW)
 
 
 if __name__ == "__main__":
@@ -152,7 +152,7 @@ if __name__ == "__main__":
         print("\nThe provided input can not be processed!\n")
         exit()
 
-    GPIO.output(27, GPIO.HIGH)
+    # GPIO.output(27, GPIO.HIGH)
 
     confirm_connection() #the program will pass this function only if an internet connection has been established
 

@@ -30,23 +30,11 @@ export default function GetDroneData(props) {
 
   return (
         <div className="drone_info">
+          <h1 className="box" >Real-time Info</h1>
           <table>
           <thead>
-            <tr>
-              <th>Drone Info</th>
-              <th>Status</th>
-            </tr>
           </thead>
           <tbody>
-            {/* <tr>
-              <td>Arm State:</td>
-              <td>{data.arm_state}</td>
-            </tr>
-            <tr>
-              <td>Flight Mode:</td>
-              <td>{data.flight_mode}</td>
-            </tr> */}
-            <p></p>
             <tr>
               <td>Altitude</td>
               <td>{data.altitude}</td>

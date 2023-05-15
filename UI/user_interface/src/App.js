@@ -28,36 +28,30 @@ function App() {
 
   return (
     <div className="container">
-
-      <div className="contorl-panel">
-        <h1 className="box">Control Panel</h1>
-        <button className="button-24" onClick={() => handleClick(1)}>ARM</button>
-        <button className="button-24" onClick={() => handleClick(2)}>DISARM</button>
-        <br></br>
-        <button className="button-24" onClick={() => handleClick(3)}>TAKEOFF Mode</button>
-        <button className="button-24" onClick={() => handleClick(4)}>LAND Mode</button>
-        <br></br>
-        <button className="button-24" onClick={() => { makeVisible();}}>MISSION Mode</button>
-        <button className="button-24" onClick={() => handleClick(8)}>RETURN Mode</button>    
-
-        <div className="drone_info">
-          <GetDroneData 
-          setDronePosition={setDronePosition}
-          setDroneID={setDroneID}
-          setConnStatus={setConnStatus}
-          />
-        </div>    
-      </div>
-
-      <div className="planning">
-        <div className="firstRow">
-        <h1 className="box">Drone ID: {droneID}</h1>
+        <div>
         <h1 className="box" style={{ color: connStatus === "NO CONNECTION" ? 'red' : 'green' }}>Status: {connStatus}</h1>
+
+        <div className="contorl-panel">
+          <h1 className="box">Commands</h1>
+          <button className="button-24" onClick={() => handleClick(1)}>ARM</button>
+          <button className="button-24" onClick={() => handleClick(2)}>DISARM</button>
+          <br></br>
+          <button className="button-24" onClick={() => handleClick(3)}>TAKEOFF Mode</button>
+          <button className="button-24" onClick={() => handleClick(4)}>LAND Mode</button>
+          <br></br>
+          <button className="button-24" onClick={() => { makeVisible();}}>MISSION Mode</button>
+          <button className="button-24" onClick={() => handleClick(8)}>RETURN Mode</button>    
         </div>
 
-      {dronePosition.lat !== 0 && connStatus === "CONNECTED" && 
-      <Map position={dronePosition} visibleForm={visibleForm}/>}
-      </div>
+        <GetDroneData 
+        setDronePosition={setDronePosition}
+        setDroneID={setDroneID}
+        setConnStatus={setConnStatus}
+        />
+        </div>
+        {dronePosition.lat !== 0 && connStatus === "CONNECTED" && 
+        <Map position={dronePosition} visibleForm={visibleForm}/>}
+
 
     </div>
   );
