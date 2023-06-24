@@ -1,0 +1,7 @@
+aiohttp==3.8.4
+aioping==0.3.1
+fastapi==0.98.0
+fastapi_utils==0.2.1
+pydantic==1.10.6
+pymavlink==2.4.37
+uvicorn==0.22.0
