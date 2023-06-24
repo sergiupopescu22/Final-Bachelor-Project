@@ -118,7 +118,7 @@ def waypoint_mission(master, waypoints):
 
     for waypoint in waypoints:
         mission_waypoints.append(
-            mission_item(index, 0, waypoint['lat'], waypoint['lng'], 5))
+            mission_item(index, 0, waypoint['lat'], waypoint['lng'], 2.8))
         print(waypoint)
         index += 1
 

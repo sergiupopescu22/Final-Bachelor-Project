@@ -26,6 +26,7 @@ from fastapi_utils.tasks import repeat_every
 from typing import Any
 import signal
 
+# uncomment these lines if the code is to be run on Raspberry Pi
 # import RPi.GPIO as GPIO
 # GPIO.setmode(GPIO.BCM)
 # led_pin = 17
@@ -121,6 +122,7 @@ async def check_internet_event():
     is_connected = await check_internet_connection_async()
 
     if is_connected:
+        # uncomment these lines if the code is to be run on Raspberry Pi
         # if GVar.action_type == "real-life-rb":
         #     GPIO.output(led_pin, GPIO.HIGH)
         GVar.emergency_land = False
@@ -130,6 +132,7 @@ async def check_internet_event():
         if GVar.emergency_land is False:
             land(master)
 
+        # uncomment these lines if the code is to be run on Raspberry Pi
         # if GVar.action_type == "real-life-rb":
         #     GPIO.output(led_pin, GPIO.LOW)
 
@@ -152,6 +155,7 @@ if __name__ == "__main__":
         print("\nThe provided input can not be processed!\n")
         exit()
 
+    # uncomment these lines if the code is to be run on Raspberry Pi
     # GPIO.output(27, GPIO.HIGH)
 
     confirm_connection() #the program will pass this function only if an internet connection has been established
