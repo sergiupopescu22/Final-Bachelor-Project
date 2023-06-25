@@ -8,10 +8,10 @@ This project is meant to be used with a real drone, but because we are aware tha
 happen, especially at the beginning, the source code can be tested using the Gazebo simulator, to simulate
 the actual drone.
 
-So, if you will use a simulated env, in order to have a running environment you need to follow these steps:
+So, if you will use a simulated env, in order to have a running system you need to follow these steps:
 
-1. Go to https://docs.px4.io/v1.12/en/dev_setup/dev_env_linux_ubuntu.html#gazebo-jmavsim-and-nuttx-pixhawk-targets
- and get the Gazebo env and run it for the deisred drone with the following command: ,,make px4_sitl gz_x500,,
+1. Go to https://docs.px4.io/main/en/dev_setup/dev_env_linux_ubuntu.html#simulation-and-nuttx-pixhawk-targets
+ and get the Gazebo env. Run it for the desired drone with the following command: ,,make px4_sitl gz_x500,,
 2. Run the command: ,,pip install -r to install,, the required packages for the web service
 3. Run the command: ,,npm install,, to install the required packaged for the web interface
 4. Run the commnad: ,,python Drone_Control_Server.py simulation,, to start the web service on the ,,drone,,
