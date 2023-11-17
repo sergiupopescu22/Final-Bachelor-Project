@@ -28,3 +28,4 @@ If you will have a drone with a Raspberry Pi computer attached to it, you need t
 5. Run the command: ,,npm start,, to start the web interface
 6. Start the drone and have fun :)
 
+Here is the entire system in action: https://www.youtube.com/watch?v=B79FF8selcs
